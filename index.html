@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>سارا محمدی | تصویرگر و انیماتور</title>
-  <meta name="description" content="نمونه‌کارهای تصویرسازی و انیمیشن — پرتفولیوی شخصی سارا محمدی" />
+  <title>عباس عبیدی | تصویرگر و انیماتور</title>
+  <meta name="description" content="نمونه‌کارهای تصویرسازی و انیمیشن — پرتفولیوی شخصی عباس عبیدی" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
@@ -176,9 +176,13 @@
       from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .card-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
-    .card-media svg { width: 100%; height: 100%; display: block; transition: transform 0.6s ease; }
-    .card:hover .card-media svg { transform: scale(1.06); }
+    .card-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--bg-soft); }
+    .card-media svg,
+    .card-media img,
+    .card-media video { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.6s ease; }
+    .card:hover .card-media svg,
+    .card:hover .card-media img,
+    .card:hover .card-media video { transform: scale(1.06); }
     .play-badge {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       width: 58px; height: 58px; display: grid; place-items: center;
@@ -196,32 +200,6 @@
       background: rgba(245, 212, 122, 0.08); border: 1px solid rgba(245, 212, 122, 0.2);
       padding: 3px 14px; border-radius: 999px;
     }
-
-    /* انیمیشن‌های داخل تصاویر */
-    .anim-star { animation: twinkle 2.5s ease-in-out infinite; }
-    .anim-star.s2 { animation-delay: -0.8s; }
-    .anim-star.s3 { animation-delay: -1.6s; }
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
-    }
-    .anim-wave { animation: waveMove 3.5s ease-in-out infinite; }
-    .anim-wave.w2 { animation-delay: -1.2s; }
-    @keyframes waveMove {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(-18px); }
-    }
-    .anim-bounce { animation: bounce 1.6s ease-in-out infinite; }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-14px); }
-    }
-    .anim-boat { animation: boatRock 2.6s ease-in-out infinite; transform-origin: center; }
-    @keyframes boatRock {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
-    }
-    .anim-sun-ray { animation: twinkle 2.2s ease-in-out infinite; }
 
     /* ---------- درباره ---------- */
     .about-inner { display: grid; grid-template-columns: 380px 1fr; gap: 70px; align-items: center; }
@@ -302,7 +280,7 @@
   <!-- نوار بالا -->
   <header class="nav" id="nav">
     <div class="nav-inner container">
-      <a href="#hero" class="nav-logo">سارا<span>.</span></a>
+      <a href="#hero" class="nav-logo">عباس<span>.</span></a>
       <nav class="nav-links" id="navLinks">
         <a href="#works" class="nav-link">نمونه‌کارها</a>
         <a href="#about" class="nav-link">درباره من</a>
@@ -356,163 +334,128 @@
 
       <div class="grid" id="grid">
         <!--
-          برای هر کارت:
-          ۱) tag کارت را بین «تصویرسازی» و «انیمیشن» درست کن
-          ۲) به‌جای SVG، تصویر واقعیات را با <img src="..." alt="..."> بگذار
-          ۳) اسم و توضیح کارت را ویرایش کن
+          راهنمای ویرایش کارت‌ها:
+          - عنوان هر اثر: داخل <h3 class="card-title">...</h3>
+          - توضیح هر اثر: داخل <p class="card-desc">...</p>
+          - تصویر: فایل داخل پوشه assets بگذار و مسیر src را عوض کن
+          - دسته: data-category="illustration" (تصویرسازی) یا "animation" (انیمیشن)
         -->
+
+        <!-- تصویرسازی -->
         <article class="card" data-category="illustration">
           <div class="card-media">
-            <svg viewBox="0 0 400 300" role="img" aria-label="تصویرسازی نمونه">
-              <defs>
-                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#e07a4f"/><stop offset="100%" stop-color="#8a3b66"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="300" fill="url(#g1)"/>
-              <circle cx="310" cy="80" r="45" fill="#f5d47a" opacity="0.9"/>
-              <path d="M0 230 Q 100 190 200 220 T 400 205 L 400 300 L 0 300 Z" fill="#2b1b2e"/>
-              <circle cx="90" cy="150" r="26" fill="#f5efe6"/>
-              <circle cx="110" cy="140" r="30" fill="#f5efe6"/>
-              <circle cx="80" cy="160" r="18" fill="#f5efe6"/>
-              <path d="M180 210 q 30 -40 70 -15" stroke="#f5d47a" stroke-width="5" fill="none" stroke-linecap="round"/>
-              <circle cx="205" cy="196" r="6" fill="#f5d47a"/>
-            </svg>
+            <img src="assets/cover.jpg" alt="جلد" loading="lazy" />
           </div>
           <div class="card-body">
-            <h3 class="card-title">ماه و ماهیگیر</h3>
-            <p class="card-desc">تصویرسازی دیجیتال برای کتاب کودک</p>
+            <h3 class="card-title">جلد</h3>
+            <p class="card-desc">تصویرسازی جلد</p>
             <span class="card-tag">تصویرسازی</span>
-          </div>
-        </article>
-
-        <article class="card" data-category="animation">
-          <div class="card-media card-media--anim">
-            <svg viewBox="0 0 400 300" role="img" aria-label="انیمیشن نمونه">
-              <defs>
-                <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#2c2a54"/><stop offset="100%" stop-color="#14122e"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="300" fill="url(#g2)"/>
-              <circle class="anim-star" cx="330" cy="60" r="3" fill="#ffe9a8"/>
-              <circle class="anim-star s2" cx="60" cy="90" r="3" fill="#ffe9a8"/>
-              <circle class="anim-star s3" cx="200" cy="40" r="3" fill="#ffe9a8"/>
-              <circle cx="200" cy="160" r="60" fill="#ffe9a8" opacity="0.12"/>
-              <circle cx="200" cy="160" r="45" fill="#f5d47a"/>
-              <path d="M200 115 a 45 45 0 0 1 0 90 z" fill="#e8b84f"/>
-              <path d="M60 300 q 30 -35 70 -20 t 70 -10 q 40 5 70 -20 t 70 5 l 0 40 z" fill="#1c1a3e"/>
-              <path class="anim-boat" d="M120 240 q 30 -18 60 -8" stroke="#f5efe6" stroke-width="4" fill="none" stroke-linecap="round"/>
-            </svg>
-            <div class="play-badge" aria-hidden="true">▶</div>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">ماهی کوچولو</h3>
-            <p class="card-desc">انیمیشن کوتاه دوبعدی، ۳۰ ثانیه</p>
-            <span class="card-tag">انیمیشن</span>
           </div>
         </article>
 
         <article class="card" data-category="illustration">
           <div class="card-media">
-            <svg viewBox="0 0 400 300" role="img" aria-label="تصویرسازی نمونه">
-              <defs>
-                <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#3f7d6e"/><stop offset="100%" stop-color="#1f4038"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="300" fill="url(#g3)"/>
-              <circle cx="200" cy="60" r="40" fill="#f5d47a" opacity="0.85"/>
-              <path d="M0 210 L 400 170 L 400 300 L 0 300 Z" fill="#0f2a23"/>
-              <path d="M90 210 q 0 -70 60 -70 q 20 0 30 15 l 0 55 Z" fill="#2c5c4c"/>
-              <path d="M150 205 q 10 -50 55 -45 l 0 50 Z" fill="#37705d"/>
-              <path d="M300 205 q 0 -80 -65 -70 l 0 70 Z" fill="#245043"/>
-              <circle cx="120" cy="150" r="8" fill="#f5efe6" opacity="0.9"/>
-              <path d="M240 230 q 20 -12 40 0" stroke="#f5efe6" stroke-width="4" fill="none" stroke-linecap="round"/>
-              <circle cx="245" cy="218" r="5" fill="#f5efe6"/>
-            </svg>
+            <img src="assets/mushroom-land.jpg" alt="سرزمین قارچی" loading="lazy" />
           </div>
           <div class="card-body">
-            <h3 class="card-title">جنگل خاموش</h3>
-            <p class="card-desc">مجموعه تصویرسازی محیطی</p>
+            <h3 class="card-title">سرزمین قارچی</h3>
+            <p class="card-desc">تصویرسازی ۱۴۰۱</p>
             <span class="card-tag">تصویرسازی</span>
-          </div>
-        </article>
-
-        <article class="card" data-category="animation">
-          <div class="card-media card-media--anim">
-            <svg viewBox="0 0 400 300" role="img" aria-label="انیمیشن نمونه">
-              <defs>
-                <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#5a2d82"/><stop offset="100%" stop-color="#241437"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="300" fill="url(#g4)"/>
-              <path class="anim-wave" d="M0 200 q 25 -20 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0" stroke="#a86fd6" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.7"/>
-              <path class="anim-wave w2" d="M0 230 q 25 -20 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0" stroke="#7d4fa8" stroke-width="6" fill="none" stroke-linecap="round"/>
-              <circle cx="200" cy="130" r="55" fill="#f5efe6"/>
-              <circle cx="200" cy="150" r="40" fill="#f5d47a"/>
-              <path d="M200 110 a 40 40 0 0 1 0 80 z" fill="#e8b84f"/>
-              <path d="M170 120 q 5 -12 18 -8 M230 120 q -5 -12 -18 -8" stroke="#5a2d82" stroke-width="4" fill="none" stroke-linecap="round"/>
-            </svg>
-            <div class="play-badge" aria-hidden="true">▶</div>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">غروب بنفش</h3>
-            <p class="card-desc">موشن‌گرافیک برند، ۱۵ ثانیه</p>
-            <span class="card-tag">انیمیشن</span>
           </div>
         </article>
 
         <article class="card" data-category="illustration">
           <div class="card-media">
-            <svg viewBox="0 0 400 300" role="img" aria-label="تصویرسازی نمونه">
-              <defs>
-                <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#b4532f"/><stop offset="100%" stop-color="#5e2417"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="300" fill="url(#g5)"/>
-              <circle cx="200" cy="140" r="90" fill="#f5d47a"/>
-              <path d="M200 50 a 90 90 0 0 1 90 90 l -90 0 Z" fill="#d9a93f"/>
-              <rect x="185" y="220" width="30" height="70" fill="#2b1b2e"/>
-              <circle cx="200" cy="235" r="10" fill="#f5d47a"/>
-              <path d="M100 260 q 30 -25 60 -10 M240 255 q 25 -20 55 -5" stroke="#2b1b2e" stroke-width="5" fill="none" stroke-linecap="round"/>
-              <path class="anim-sun-ray" d="M160 60 l 10 20 M240 60 l -10 20 M130 100 l 20 10 M270 100 l -20 10" stroke="#ffe9a8" stroke-width="5" stroke-linecap="round"/>
-            </svg>
+            <img src="assets/camp.jpg" alt="کمپ زندگی" loading="lazy" />
           </div>
           <div class="card-body">
-            <h3 class="card-title">شب یلدا</h3>
-            <p class="card-desc">پوستر تصویرسازی برای جشنواره</p>
+            <h3 class="card-title">کمپ زندگی</h3>
+            <p class="card-desc">تصویرسازی ۱۴۰۱</p>
             <span class="card-tag">تصویرسازی</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="illustration">
+          <div class="card-media">
+            <img src="assets/work-15-16.jpg" alt="اثر ۱۵–۱۶" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">۱۵–۱۶</h3>
+            <p class="card-desc">تصویرسازی</p>
+            <span class="card-tag">تصویرسازی</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="illustration">
+          <div class="card-media">
+            <img src="assets/work-16.jpg" alt="اثر ۱۶" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">۱۶</h3>
+            <p class="card-desc">تصویرسازی</p>
+            <span class="card-tag">تصویرسازی</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="illustration">
+          <div class="card-media">
+            <img src="assets/work-1.jpeg" alt="بدون عنوان" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">بدون عنوان</h3>
+            <p class="card-desc">تصویرسازی</p>
+            <span class="card-tag">تصویرسازی</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="illustration">
+          <div class="card-media">
+            <img src="assets/work-2.jpeg" alt="بدون عنوان" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">بدون عنوان</h3>
+            <p class="card-desc">تصویرسازی</p>
+            <span class="card-tag">تصویرسازی</span>
+          </div>
+        </article>
+
+        <!-- انیمیشن -->
+        <article class="card" data-category="animation">
+          <div class="card-media card-media--anim">
+            <video src="assets/video-firecrackers.mp4" muted loop playsinline autoplay></video>
+            <div class="play-badge" aria-hidden="true">▶</div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">چهارشنبه‌سوری</h3>
+            <p class="card-desc">انیمیشن طنز</p>
+            <span class="card-tag">انیمیشن</span>
           </div>
         </article>
 
         <article class="card" data-category="animation">
           <div class="card-media card-media--anim">
-            <svg viewBox="0 0 400 300" role="img" aria-label="انیمیشن نمونه">
-              <defs>
-                <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#e07a4f"/><stop offset="100%" stop-color="#7a2e4a"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="300" fill="url(#g6)"/>
-              <circle class="anim-bounce" cx="200" cy="150" r="55" fill="#f5efe6"/>
-              <path d="M200 95 a 55 55 0 0 1 55 55 l -55 0 Z" fill="#e8c9a0"/>
-              <circle cx="185" cy="140" r="6" fill="#3a2a2a"/>
-              <circle cx="220" cy="140" r="6" fill="#3a2a2a"/>
-              <path d="M185 165 q 18 14 36 0" stroke="#3a2a2a" stroke-width="5" fill="none" stroke-linecap="round"/>
-              <path d="M155 120 l -15 -25 l 25 10 M250 120 l 15 -25 l -25 10" stroke="#f5efe6" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <path d="M90 260 q 30 -22 60 -12 M250 255 q 25 -18 55 -6" stroke="#f5efe6" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
-            </svg>
+            <video src="assets/video-haunted-house.mp4" controls preload="metadata" muted playsinline></video>
             <div class="play-badge" aria-hidden="true">▶</div>
           </div>
           <div class="card-body">
-            <h3 class="card-title">کاراکتر برند «کوکو»</h3>
-            <p class="card-desc">طراحی و انیمیت کاراکتر ماسکوت</p>
+            <h3 class="card-title">خانه جن‌زده</h3>
+            <p class="card-desc">انیمیشن ترسناک</p>
             <span class="card-tag">انیمیشن</span>
           </div>
         </article>
+
+        <article class="card" data-category="animation">
+          <div class="card-media card-media--anim">
+            <video src="assets/video-ghost.mp4" controls preload="metadata" muted playsinline></video>
+            <div class="play-badge" aria-hidden="true">▶</div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">شبح سرگردان</h3>
+            <p class="card-desc">انیمیشن ترسناک</p>
+            <span class="card-tag">انیمیشن</span>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -542,7 +485,7 @@
       <div class="about-content">
         <p class="section-tag reveal">درباره من</p>
         <h2 class="section-title reveal">از قلم و کاغذ تا <span class="grad">فریم‌به‌فریم</span></h2>
-        <p class="reveal">سلام! من سارا محمدی هستم؛ تصویرگر و انیماتور. کارم را با نقاشی سنتی شروع کردم و حالا با ابزارهای دیجیتال، شخصیت‌ها و دنیاهایی می‌سازم که قصه‌گوی برندها و کتاب‌ها هستند.</p>
+        <p class="reveal">سلام! من عباس عبیدی هستم؛ تصویرگر و انیماتور. کارم را با نقاشی سنتی شروع کردم و حالا با ابزارهای دیجیتال، شخصیت‌ها و دنیاهایی می‌سازم که قصه‌گوی برندها و کتاب‌ها هستند.</p>
         <p class="reveal">عاشق اینم که ایده‌های پیچیده را ساده، گرم و انسانی روایت کنم — چه یک صفحه تصویرسازی برای کتاب کودک باشد، چه یک انیمیشن کوتاه برای معرفی محصول.</p>
         <ul class="skills reveal">
           <li>تصویرسازی دیجیتال</li>
@@ -565,20 +508,20 @@
         <p>پروژه‌ای در ذهن دارید؟ خوشحال می‌شوم درباره‌اش صحبت کنیم.</p>
       </div>
       <div class="contact-cards reveal">
-        <a class="contact-card" href="mailto:sara@example.com">
+        <a class="contact-card" href="mailto:abbasabidqomi@gmail.com">
           <span class="contact-icon">✉️</span>
           <strong>ایمیل</strong>
-          <span>sara@example.com</span>
+          <span>abbasabidqomi@gmail.com</span>
         </a>
-        <a class="contact-card" href="https://instagram.com" target="_blank" rel="noopener">
+        <a class="contact-card" href="https://instagram.com/abidi.abbas" target="_blank" rel="noopener">
           <span class="contact-icon">📸</span>
           <strong>اینستاگرام</strong>
-          <span>@sara.mohammadi</span>
+          <span>@abidi.abbas</span>
         </a>
-        <a class="contact-card" href="https://behance.net" target="_blank" rel="noopener">
+        <a class="contact-card" href="https://behance.net/abbas" target="_blank" rel="noopener">
           <span class="contact-icon">🎨</span>
           <strong>بِهنس</strong>
-          <span>behance.net/sara</span>
+          <span>behance.net/abbas</span>
         </a>
       </div>
     </div>
@@ -586,7 +529,7 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <span>© ۱۴۰۴ سارا محمدی — ساخته‌شده با ❤️</span>
+      <span>© ۱۴۰۴ عباس عبیدی — ساخته‌شده با ❤️</span>
       <a href="#hero" class="back-top">بازگشت به بالا ↑</a>
     </div>
   </footer>
