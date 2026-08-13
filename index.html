@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سارا محمدی | تصویرگر و انیماتور</title>
+  <meta name="description" content="نمونه‌کارهای تصویرسازی و انیمیشن — پرتفولیوی شخصی سارا محمدی" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================
+       پرتفولیوی شخصی — تم تیره و گرم
+       برای تغییر رنگ‌ها، متغیرهای :root را ویرایش کن
+       ============================================ */
+    :root {
+      --bg: #141210;
+      --bg-soft: #1d1a16;
+      --card: #221e19;
+      --line: rgba(245, 239, 230, 0.08);
+      --text: #f5efe6;
+      --muted: #b3a896;
+      --accent: #e07a4f;
+      --accent-2: #f5d47a;
+      --grad: linear-gradient(120deg, #f5d47a, #e07a4f);
+      --radius: 18px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      --font: "Vazirmatn", system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    .container { width: min(1120px, 92%); margin-inline: auto; }
+
+    ::selection { background: var(--accent); color: #fff; }
+
+    .grad {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ---------- نوار بالا ---------- */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: background 0.35s, padding 0.35s, box-shadow 0.35s;
+    }
+    .nav.scrolled {
+      background: rgba(20, 18, 16, 0.85);
+      backdrop-filter: blur(14px);
+      padding: 12px 0;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 1.5rem; font-weight: 900; color: var(--text); text-decoration: none; letter-spacing: 1px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 34px; }
+    .nav-link {
+      color: var(--muted); text-decoration: none; font-size: 0.95rem;
+      position: relative; transition: color 0.25s;
+    }
+    .nav-link::after {
+      content: ""; position: absolute; right: 0; bottom: -6px;
+      width: 0; height: 2px; background: var(--grad); border-radius: 2px; transition: width 0.3s;
+    }
+    .nav-link:hover { color: var(--text); }
+    .nav-link:hover::after { width: 100%; }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: 0; cursor: pointer; padding: 6px;
+    }
+    .nav-toggle span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ---------- هیرو ---------- */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 0 60px; overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(90px);
+      opacity: 0.5; animation: float 12s ease-in-out infinite;
+    }
+    .blob-1 { width: 420px; height: 420px; background: #e07a4f; top: -120px; right: -120px; }
+    .blob-2 { width: 360px; height: 360px; background: #5a2d82; bottom: -100px; left: -100px; animation-delay: -4s; }
+    .blob-3 { width: 260px; height: 260px; background: #3f7d6e; top: 40%; right: 30%; opacity: 0.35; animation-delay: -8s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+    .dash {
+      position: absolute; width: 90px; height: 3px;
+      background: var(--grad); border-radius: 3px; opacity: 0.6;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .dash-1 { top: 26%; right: 8%; transform: rotate(-15deg); }
+    .dash-2 { bottom: 22%; left: 10%; transform: rotate(20deg); animation-delay: -1s; }
+    .dash-3 { top: 58%; left: 42%; width: 50px; animation-delay: -2s; }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 0.85; }
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 720px; }
+    .hero-eyebrow {
+      display: inline-block; color: var(--accent-2);
+      border: 1px solid var(--line); background: rgba(245, 239, 230, 0.04);
+      padding: 6px 18px; border-radius: 999px; font-size: 0.9rem; margin-bottom: 28px;
+    }
+    .hero-title { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 900; line-height: 1.35; margin-bottom: 26px; }
+    .hero-sub { color: var(--muted); font-size: 1.1rem; max-width: 560px; margin-bottom: 38px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 60px; }
+    .btn {
+      display: inline-block; padding: 14px 34px; border-radius: 999px;
+      text-decoration: none; font-family: var(--font); font-weight: 700; font-size: 0.98rem;
+      transition: transform 0.25s, box-shadow 0.25s, background 0.25s, color 0.25s;
+    }
+    .btn-primary { background: var(--grad); color: #1a120c; box-shadow: 0 10px 30px rgba(224, 122, 79, 0.35); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(224, 122, 79, 0.45); }
+    .btn-ghost { color: var(--text); border: 1.5px solid var(--line); background: rgba(245, 239, 230, 0.03); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent-2); transform: translateY(-3px); }
+    .hero-stats { display: flex; gap: 48px; flex-wrap: wrap; }
+    .stat { display: flex; flex-direction: column; }
+    .stat strong {
+      font-size: 1.9rem; font-weight: 900;
+      background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+      line-height: 1.3;
+    }
+    .stat span { color: var(--muted); font-size: 0.85rem; }
+
+    /* ---------- بخش‌ها ---------- */
+    .section { padding: 110px 0; }
+    .section:nth-of-type(odd) { background: var(--bg-soft); }
+    .section-head { text-align: center; margin-bottom: 50px; }
+    .section-tag { color: var(--accent); font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 900; line-height: 1.5; }
+
+    /* ---------- فیلترها ---------- */
+    .filters { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 46px; }
+    .filter-btn {
+      font-family: var(--font); font-size: 0.92rem; font-weight: 500; color: var(--muted);
+      background: transparent; border: 1.5px solid var(--line); border-radius: 999px;
+      padding: 9px 26px; cursor: pointer; transition: all 0.25s;
+    }
+    .filter-btn:hover { color: var(--text); border-color: var(--accent); }
+    .filter-btn.active { background: var(--grad); color: #1a120c; border-color: transparent; font-weight: 700; }
+
+    /* ---------- شبکه آثار ---------- */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 26px; }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; cursor: pointer;
+      transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
+      animation: fadeUp 0.6s ease both;
+    }
+    .card:hover { transform: translateY(-8px); box-shadow: var(--shadow); border-color: rgba(224, 122, 79, 0.4); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+    .card-media svg { width: 100%; height: 100%; display: block; transition: transform 0.6s ease; }
+    .card:hover .card-media svg { transform: scale(1.06); }
+    .play-badge {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 58px; height: 58px; display: grid; place-items: center;
+      background: rgba(20, 18, 16, 0.65); backdrop-filter: blur(6px);
+      border: 1.5px solid rgba(245, 239, 230, 0.4); border-radius: 50%;
+      color: #fff; font-size: 1.1rem; opacity: 0;
+      transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+    }
+    .card:hover .play-badge { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+    .card-body { padding: 20px 22px 24px; }
+    .card-title { font-size: 1.12rem; font-weight: 700; margin-bottom: 4px; }
+    .card-desc { color: var(--muted); font-size: 0.88rem; margin-bottom: 12px; }
+    .card-tag {
+      display: inline-block; font-size: 0.75rem; color: var(--accent-2);
+      background: rgba(245, 212, 122, 0.08); border: 1px solid rgba(245, 212, 122, 0.2);
+      padding: 3px 14px; border-radius: 999px;
+    }
+
+    /* انیمیشن‌های داخل تصاویر */
+    .anim-star { animation: twinkle 2.5s ease-in-out infinite; }
+    .anim-star.s2 { animation-delay: -0.8s; }
+    .anim-star.s3 { animation-delay: -1.6s; }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    .anim-wave { animation: waveMove 3.5s ease-in-out infinite; }
+    .anim-wave.w2 { animation-delay: -1.2s; }
+    @keyframes waveMove {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-18px); }
+    }
+    .anim-bounce { animation: bounce 1.6s ease-in-out infinite; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    .anim-boat { animation: boatRock 2.6s ease-in-out infinite; transform-origin: center; }
+    @keyframes boatRock {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    .anim-sun-ray { animation: twinkle 2.2s ease-in-out infinite; }
+
+    /* ---------- درباره ---------- */
+    .about-inner { display: grid; grid-template-columns: 380px 1fr; gap: 70px; align-items: center; }
+    .about-visual { position: relative; }
+    .about-frame {
+      border-radius: 24px; overflow: hidden;
+      border: 1px solid var(--line); box-shadow: var(--shadow);
+      transform: rotate(-2deg);
+    }
+    .about-frame svg { width: 100%; display: block; }
+    .about-badge {
+      position: absolute; bottom: -20px; left: -20px;
+      background: var(--grad); color: #1a120c; font-weight: 900; text-align: center;
+      line-height: 1.5; padding: 18px 24px; border-radius: 16px; font-size: 1rem;
+      box-shadow: var(--shadow); transform: rotate(3deg);
+    }
+    .about-content p:not(.section-tag) { color: var(--muted); margin-bottom: 18px; }
+    .about-content .section-title { margin-bottom: 20px; }
+    .skills { list-style: none; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .skills li {
+      background: rgba(245, 239, 230, 0.05); border: 1px solid var(--line);
+      border-radius: 999px; padding: 8px 20px; font-size: 0.88rem; color: var(--text);
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .skills li:hover { border-color: var(--accent); color: var(--accent-2); }
+
+    /* ---------- تماس ---------- */
+    .contact-inner { text-align: center; }
+    .contact-head { margin-bottom: 50px; }
+    .contact-head p:last-child { color: var(--muted); margin-top: 14px; }
+    .contact-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+    .contact-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 34px 20px; text-decoration: none; color: var(--text);
+      display: flex; flex-direction: column; gap: 6px;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .contact-card:hover { transform: translateY(-6px); border-color: rgba(224, 122, 79, 0.5); box-shadow: var(--shadow); }
+    .contact-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .contact-card strong { font-size: 1.05rem; }
+    .contact-card span:last-child { color: var(--muted); font-size: 0.88rem; }
+
+    /* ---------- فوتر ---------- */
+    .footer { border-top: 1px solid var(--line); padding: 30px 0; }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 0.88rem;
+    }
+    .back-top { color: var(--accent-2); text-decoration: none; font-weight: 500; transition: color 0.25s; }
+    .back-top:hover { color: var(--accent); }
+
+    /* ---------- انیمیشن ظهور هنگام اسکرول ---------- */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ---------- ریسپانسیو ---------- */
+    @media (max-width: 900px) {
+      .about-inner { grid-template-columns: 1fr; gap: 60px; }
+      .about-visual { max-width: 340px; margin-inline: auto; }
+    }
+    @media (max-width: 720px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: fixed; top: 0; right: 0; height: 100vh; width: min(320px, 80%);
+        background: var(--bg-soft); flex-direction: column; justify-content: center; align-items: center; gap: 34px;
+        transform: translateX(100%); transition: transform 0.4s ease; box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
+      }
+      .nav-links.open { transform: translateX(0); }
+      .nav-link { font-size: 1.15rem; }
+      .hero-stats { gap: 32px; }
+      .section { padding: 80px 0; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- نوار بالا -->
+  <header class="nav" id="nav">
+    <div class="nav-inner container">
+      <a href="#hero" class="nav-logo">سارا<span>.</span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#works" class="nav-link">نمونه‌کارها</a>
+        <a href="#about" class="nav-link">درباره من</a>
+        <a href="#contact" class="nav-link">تماس</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="باز کردن منو" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- هیرو -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <span class="dash dash-1"></span>
+      <span class="dash dash-2"></span>
+      <span class="dash dash-3"></span>
+    </div>
+    <div class="container hero-inner">
+      <p class="hero-eyebrow reveal">سلام 👋 من تصویرگر و انیماتورم</p>
+      <h1 class="hero-title reveal">قصه‌ها را با<br /><span class="grad">تصویر و حرکت</span><br />روایت می‌کنم</h1>
+      <p class="hero-sub reveal">تصویرسازی‌های دست‌ساز و انیمیشن‌های شخصیت‌محور برای کتاب کودک، برندها و کمپین‌های خلاقانه.</p>
+      <div class="hero-actions reveal">
+        <a href="#works" class="btn btn-primary">دیدن نمونه‌کارها</a>
+        <a href="#contact" class="btn btn-ghost">همکاری با من</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat"><strong>+۸</strong><span>سال تجربه</span></div>
+        <div class="stat"><strong>+۱۲۰</strong><span>پروژه موفق</span></div>
+        <div class="stat"><strong>+۴۰</strong><span>مشتری راضی</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- نمونه‌کارها -->
+  <section class="works section" id="works">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="section-tag">نمونه‌کارها</p>
+        <h2 class="section-title">گزیده‌ای از <span class="grad">آثارم</span></h2>
+      </div>
+
+      <div class="filters reveal" id="filters">
+        <button class="filter-btn active" data-filter="all">همه</button>
+        <button class="filter-btn" data-filter="illustration">تصویرسازی</button>
+        <button class="filter-btn" data-filter="animation">انیمیشن</button>
+      </div>
+
+      <div class="grid" id="grid">
+        <!--
+          برای هر کارت:
+          ۱) tag کارت را بین «تصویرسازی» و «انیمیشن» درست کن
+          ۲) به‌جای SVG، تصویر واقعیات را با <img src="..." alt="..."> بگذار
+          ۳) اسم و توضیح کارت را ویرایش کن
+        -->
+        <article class="card" data-category="illustration">
+          <div class="card-media">
+            <svg viewBox="0 0 400 300" role="img" aria-label="تصویرسازی نمونه">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#e07a4f"/><stop offset="100%" stop-color="#8a3b66"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#g1)"/>
+              <circle cx="310" cy="80" r="45" fill="#f5d47a" opacity="0.9"/>
+              <path d="M0 230 Q 100 190 200 220 T 400 205 L 400 300 L 0 300 Z" fill="#2b1b2e"/>
+              <circle cx="90" cy="150" r="26" fill="#f5efe6"/>
+              <circle cx="110" cy="140" r="30" fill="#f5efe6"/>
+              <circle cx="80" cy="160" r="18" fill="#f5efe6"/>
+              <path d="M180 210 q 30 -40 70 -15" stroke="#f5d47a" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <circle cx="205" cy="196" r="6" fill="#f5d47a"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">ماه و ماهیگیر</h3>
+            <p class="card-desc">تصویرسازی دیجیتال برای کتاب کودک</p>
+            <span class="card-tag">تصویرسازی</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="animation">
+          <div class="card-media card-media--anim">
+            <svg viewBox="0 0 400 300" role="img" aria-label="انیمیشن نمونه">
+              <defs>
+                <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2c2a54"/><stop offset="100%" stop-color="#14122e"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#g2)"/>
+              <circle class="anim-star" cx="330" cy="60" r="3" fill="#ffe9a8"/>
+              <circle class="anim-star s2" cx="60" cy="90" r="3" fill="#ffe9a8"/>
+              <circle class="anim-star s3" cx="200" cy="40" r="3" fill="#ffe9a8"/>
+              <circle cx="200" cy="160" r="60" fill="#ffe9a8" opacity="0.12"/>
+              <circle cx="200" cy="160" r="45" fill="#f5d47a"/>
+              <path d="M200 115 a 45 45 0 0 1 0 90 z" fill="#e8b84f"/>
+              <path d="M60 300 q 30 -35 70 -20 t 70 -10 q 40 5 70 -20 t 70 5 l 0 40 z" fill="#1c1a3e"/>
+              <path class="anim-boat" d="M120 240 q 30 -18 60 -8" stroke="#f5efe6" stroke-width="4" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div class="play-badge" aria-hidden="true">▶</div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">ماهی کوچولو</h3>
+            <p class="card-desc">انیمیشن کوتاه دوبعدی، ۳۰ ثانیه</p>
+            <span class="card-tag">انیمیشن</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="illustration">
+          <div class="card-media">
+            <svg viewBox="0 0 400 300" role="img" aria-label="تصویرسازی نمونه">
+              <defs>
+                <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3f7d6e"/><stop offset="100%" stop-color="#1f4038"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#g3)"/>
+              <circle cx="200" cy="60" r="40" fill="#f5d47a" opacity="0.85"/>
+              <path d="M0 210 L 400 170 L 400 300 L 0 300 Z" fill="#0f2a23"/>
+              <path d="M90 210 q 0 -70 60 -70 q 20 0 30 15 l 0 55 Z" fill="#2c5c4c"/>
+              <path d="M150 205 q 10 -50 55 -45 l 0 50 Z" fill="#37705d"/>
+              <path d="M300 205 q 0 -80 -65 -70 l 0 70 Z" fill="#245043"/>
+              <circle cx="120" cy="150" r="8" fill="#f5efe6" opacity="0.9"/>
+              <path d="M240 230 q 20 -12 40 0" stroke="#f5efe6" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <circle cx="245" cy="218" r="5" fill="#f5efe6"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">جنگل خاموش</h3>
+            <p class="card-desc">مجموعه تصویرسازی محیطی</p>
+            <span class="card-tag">تصویرسازی</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="animation">
+          <div class="card-media card-media--anim">
+            <svg viewBox="0 0 400 300" role="img" aria-label="انیمیشن نمونه">
+              <defs>
+                <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#5a2d82"/><stop offset="100%" stop-color="#241437"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#g4)"/>
+              <path class="anim-wave" d="M0 200 q 25 -20 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0" stroke="#a86fd6" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.7"/>
+              <path class="anim-wave w2" d="M0 230 q 25 -20 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0 t 50 0" stroke="#7d4fa8" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <circle cx="200" cy="130" r="55" fill="#f5efe6"/>
+              <circle cx="200" cy="150" r="40" fill="#f5d47a"/>
+              <path d="M200 110 a 40 40 0 0 1 0 80 z" fill="#e8b84f"/>
+              <path d="M170 120 q 5 -12 18 -8 M230 120 q -5 -12 -18 -8" stroke="#5a2d82" stroke-width="4" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div class="play-badge" aria-hidden="true">▶</div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">غروب بنفش</h3>
+            <p class="card-desc">موشن‌گرافیک برند، ۱۵ ثانیه</p>
+            <span class="card-tag">انیمیشن</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="illustration">
+          <div class="card-media">
+            <svg viewBox="0 0 400 300" role="img" aria-label="تصویرسازی نمونه">
+              <defs>
+                <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#b4532f"/><stop offset="100%" stop-color="#5e2417"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#g5)"/>
+              <circle cx="200" cy="140" r="90" fill="#f5d47a"/>
+              <path d="M200 50 a 90 90 0 0 1 90 90 l -90 0 Z" fill="#d9a93f"/>
+              <rect x="185" y="220" width="30" height="70" fill="#2b1b2e"/>
+              <circle cx="200" cy="235" r="10" fill="#f5d47a"/>
+              <path d="M100 260 q 30 -25 60 -10 M240 255 q 25 -20 55 -5" stroke="#2b1b2e" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path class="anim-sun-ray" d="M160 60 l 10 20 M240 60 l -10 20 M130 100 l 20 10 M270 100 l -20 10" stroke="#ffe9a8" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">شب یلدا</h3>
+            <p class="card-desc">پوستر تصویرسازی برای جشنواره</p>
+            <span class="card-tag">تصویرسازی</span>
+          </div>
+        </article>
+
+        <article class="card" data-category="animation">
+          <div class="card-media card-media--anim">
+            <svg viewBox="0 0 400 300" role="img" aria-label="انیمیشن نمونه">
+              <defs>
+                <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#e07a4f"/><stop offset="100%" stop-color="#7a2e4a"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="300" fill="url(#g6)"/>
+              <circle class="anim-bounce" cx="200" cy="150" r="55" fill="#f5efe6"/>
+              <path d="M200 95 a 55 55 0 0 1 55 55 l -55 0 Z" fill="#e8c9a0"/>
+              <circle cx="185" cy="140" r="6" fill="#3a2a2a"/>
+              <circle cx="220" cy="140" r="6" fill="#3a2a2a"/>
+              <path d="M185 165 q 18 14 36 0" stroke="#3a2a2a" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M155 120 l -15 -25 l 25 10 M250 120 l 15 -25 l -25 10" stroke="#f5efe6" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <path d="M90 260 q 30 -22 60 -12 M250 255 q 25 -18 55 -6" stroke="#f5efe6" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+            <div class="play-badge" aria-hidden="true">▶</div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">کاراکتر برند «کوکو»</h3>
+            <p class="card-desc">طراحی و انیمیت کاراکتر ماسکوت</p>
+            <span class="card-tag">انیمیشن</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- درباره من -->
+  <section class="about section" id="about">
+    <div class="container about-inner">
+      <div class="about-visual reveal">
+        <div class="about-frame">
+          <svg viewBox="0 0 300 360" role="img" aria-label="پرتره">
+            <rect width="300" height="360" fill="#241a14"/>
+            <circle cx="150" cy="120" r="70" fill="#e8b98a"/>
+            <path d="M80 130 q 70 -75 140 0 q 5 60 -20 80 l -100 0 q -25 -20 -20 -80 Z" fill="#3a2a22"/>
+            <path d="M120 210 q 30 25 60 0 l 0 40 l -60 0 Z" fill="#f5efe6" opacity="0.85"/>
+            <path d="M95 250 q 55 -30 110 0 l -15 110 l -80 0 Z" fill="#e07a4f"/>
+            <circle cx="120" cy="118" r="5" fill="#3a2a2a"/>
+            <circle cx="180" cy="118" r="5" fill="#3a2a2a"/>
+            <path d="M135 145 q 15 12 30 0" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle class="anim-star" cx="40" cy="60" r="3" fill="#f5d47a"/>
+            <circle class="anim-star s2" cx="255" cy="200" r="3" fill="#f5d47a"/>
+            <circle class="anim-star s3" cx="230" cy="50" r="3" fill="#f5d47a"/>
+          </svg>
+        </div>
+        <div class="about-badge">۸+ سال<br />تجربه</div>
+      </div>
+
+      <div class="about-content">
+        <p class="section-tag reveal">درباره من</p>
+        <h2 class="section-title reveal">از قلم و کاغذ تا <span class="grad">فریم‌به‌فریم</span></h2>
+        <p class="reveal">سلام! من سارا محمدی هستم؛ تصویرگر و انیماتور. کارم را با نقاشی سنتی شروع کردم و حالا با ابزارهای دیجیتال، شخصیت‌ها و دنیاهایی می‌سازم که قصه‌گوی برندها و کتاب‌ها هستند.</p>
+        <p class="reveal">عاشق اینم که ایده‌های پیچیده را ساده، گرم و انسانی روایت کنم — چه یک صفحه تصویرسازی برای کتاب کودک باشد، چه یک انیمیشن کوتاه برای معرفی محصول.</p>
+        <ul class="skills reveal">
+          <li>تصویرسازی دیجیتال</li>
+          <li>انیمیشن دوبعدی</li>
+          <li>طراحی کاراکتر</li>
+          <li>موشن‌گرافیک</li>
+          <li>استوری‌بورد</li>
+          <li>تصویرسازی کتاب کودک</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- تماس -->
+  <section class="contact section" id="contact">
+    <div class="container contact-inner">
+      <div class="contact-head reveal">
+        <p class="section-tag">تماس</p>
+        <h2 class="section-title">بیایید چیزی <span class="grad">زیبا</span> بسازیم</h2>
+        <p>پروژه‌ای در ذهن دارید؟ خوشحال می‌شوم درباره‌اش صحبت کنیم.</p>
+      </div>
+      <div class="contact-cards reveal">
+        <a class="contact-card" href="mailto:sara@example.com">
+          <span class="contact-icon">✉️</span>
+          <strong>ایمیل</strong>
+          <span>sara@example.com</span>
+        </a>
+        <a class="contact-card" href="https://instagram.com" target="_blank" rel="noopener">
+          <span class="contact-icon">📸</span>
+          <strong>اینستاگرام</strong>
+          <span>@sara.mohammadi</span>
+        </a>
+        <a class="contact-card" href="https://behance.net" target="_blank" rel="noopener">
+          <span class="contact-icon">🎨</span>
+          <strong>بِهنس</strong>
+          <span>behance.net/sara</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© ۱۴۰۴ سارا محمدی — ساخته‌شده با ❤️</span>
+      <a href="#hero" class="back-top">بازگشت به بالا ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================
+    // پرتفولیو — اسکریپت‌های تعاملی
+    // ============================================
+
+    // ۱) تغییر ظاهر نوار بالا هنگام اسکرول
+    const nav = document.getElementById("nav");
+    const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // ۲) منوی موبایل
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    navToggle.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      navToggle.classList.toggle("open", open);
+      navToggle.setAttribute("aria-expanded", String(open));
+    });
+
+    // بستن منو بعد از کلیک روی لینک
+    navLinks.querySelectorAll("a").forEach((link) =>
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        navToggle.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      })
+    );
+
+    // ۳) فیلتر نمونه‌کارها
+    const filters = document.getElementById("filters");
+    const cards = document.querySelectorAll(".card");
+
+    filters.addEventListener("click", (e) => {
+      const btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+
+      filters.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.dataset.filter;
+      cards.forEach((card, i) => {
+        const show = filter === "all" || card.dataset.category === filter;
+        card.style.display = show ? "" : "none";
+        if (show) {
+          card.style.animation = "none";
+          void card.offsetWidth; // ری‌استارت انیمیشن ورود
+          card.style.animation = `fadeUp 0.5s ease both`;
+          card.style.animationDelay = `${Math.min(i * 60, 360)}ms`;
+        }
+      });
+    });
+
+    // ۴) انیمیشن ظهور هنگام اسکرول
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    revealEls.forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
